@@ -1,3 +1,5 @@
+Scenarios:
+
 Layla: A senior in digital marketing, wants to build a career roadmap before graduation. 
 The app helps her outline the exact skills and industry trends that will make her stand out, 
 recommending which certifications, workshops, and coursework to prioritize. 
@@ -21,3 +23,18 @@ Based on these, the platform creates a custom roadmap that suggests courses, cer
 Through forums, Ethan connects with alumni who’ve made similar transitions, gaining advice and mentorship. 
 The platform pulls data from industry trends and company requirements to keep his roadmap up-to-date, 
 ensuring Ethan stays aligned with his career goals.
+
+User Stories:
+
+Ethan:
+I want to assess my existing skills to identify gaps for a career in cloud computing.
+I need a personalized career roadmap that outlines the certifications and skills I need to develop.
+
+Sofia:
+I want to create a career roadmap that highlights essential skills for transitioning into software development.
+I need suggestions for courses and certifications that align with my career goals and current academic coursework.
+
+Layla:
+I want to build a strong portfolio and gain relevant skills before graduation to enhance my employability in digital marketing.
+I need reminders about upcoming career events and workshops that align with my career roadmap to stay on track with my goals.
+
