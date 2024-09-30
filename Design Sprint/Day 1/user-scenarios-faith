@@ -1,1 +1,41 @@
+Scenarios:
+1. Marcus's Scenario: Marcus, a 26-year-old software engineer, is exploring career shifts.
+After finding the career guidance platform, he uses it to assess his current skill set against in-demand skills for various tech-related fields.
+He narrows his focus to data science and uses the job recommendation tool to find opportunities aligned with his new goals.
+He regularly revisits the platform to track his progress and updates his resume based on real-time feedback from the skill tracker.
+Ultimately, Marcus decides to pursue a specialized certification that the platform recommended.
 
+2. Oliver's Scenario: Oliver, a recent graduate in computer engineering, seeks guidance on breaking into either tech or research fields.
+He logs onto the platform and uses the mentorship feature to connect with alumni in both industries.
+By reviewing job market trends and reading alumni success stories, Oliver narrows his decision to a tech-focused career.
+The platform’s internship recommendation engine helps him find relevant positions.
+Eventually, Oliver applies for a tech internship that aligns with his interests, thanks to real-time job market insights.
+
+3. Ada's Scenario: Ada, a 19-year-old international student, uses the platform to understand the local job market and visa implications.
+She first accesses the visa-specific career resources, which provide tailored advice on securing internships and work sponsorships.
+Ada explores local internship opportunities through the platform and uses its visa sponsorship filters.
+The platform helps her apply to multiple internships that meet her visa requirements.
+Ada tracks her applications and receives reminders about deadlines, ensuring she stays on top of her career goals.
+
+4. Erica's Scenario: Erica, a Senior in mass communication, wants to build her professional network.
+After discovering the platform at a university event, she engages in the mentorship program, connecting with alumni in the marketing and media fields.
+Erica also uses the platform’s event reminder system to attend workshops that help her build industry-relevant skills.
+She updates her portfolio based on the feedback from mentors and applies to internships through the job-matching feature,
+hoping to transition from academic to industry roles.
+
+User Stories:
+Marcus:
+As Marcus, I want to explore tech fields outside of software engineering to find a new career path.
+As Marcus, I need personalized recommendations for certifications so I can upgrade my skills.
+
+Oliver:
+As Oliver, I want to connect with alumni from both tech and research fields to gain insights into career options.
+As Oliver, I need job recommendations that align with my academic background to apply for suitable internships.
+
+Ada:
+As Ada, I want to understand the visa implications of different job opportunities so I can secure a role in the local market.
+As Ada, I need real-time guidance on job market trends to align my academic studies with my career aspirations.
+
+Erica:
+As Erica, I want to expand my professional network by attending workshops and networking events.
+As Erica, I need personalized recommendations for non-academic jobs that suit my communication skills.
