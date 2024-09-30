@@ -1,3 +1,5 @@
+# Scenarios
+-------------------------------------------
 Alex, a 23-year-old graduate with a Computer Science degree, is eager to land a high-paying software engineering job at a top tech company. 
 However, he feels overwhelmed by the competitive job market and unsure of the required skills. 
 After downloading the app, Alex input his degree and desired job role, which prompts the app to create a custom career roadmap. 
@@ -18,9 +20,21 @@ The app creates a tailored career roadmap by integrating with Ethan's academic s
 As he explores job trends, the app provides insights into in-demand skills specific to his target companies. 
 Furthermore, it connects Ethan with alumni working in similar fields, facilitating mentorship opportunities that help him refine his applications and navigate the complexities of a new job market.
 
-Robert is a 28-year-old software engineer seeking a career change in game development. 
-He realizes he needs to identify the specific skills and experiences that will make him competitive in this new field. 
-Using the app, Robert inputs his existing skills and receives a thorough analysis comparing them to job descriptions in game development. 
-The app highlights gaps in his knowledge, such as familiarity with game engines and graphic design, and creates a personalized roadmap that includes recommended courses, project ideas, and relevant online communities. 
-By pulling data from industry reports, the app keeps Robert updated on emerging trends in game development. 
-Additionally, it suggests forums where he can engage with other aspiring game developers, helping him build a network and gain valuable insights as he transitions into his new career.
+-------------------------------------------
+
+# Stories
+-------------------------------------------
+Alex - The Recent Graduate
+As a recent graduate in Computer Science,
+I want a personalized career roadmap that highlights the in-demand skills for software engineering,
+So that I can focus my learning efforts and increase my chances of landing a high-paying job at a top tech company.
+
+Olivia - The Unsure Sophomore
+As a sophomore majoring in Biology,
+I want to explore different career paths and receive tailored suggestions based on my skills,
+So that I can make informed decisions about my major and future career without feeling lost.
+
+Ethan - The International Graduate Student
+As an international student pursuing an MBA,
+I want insights into the job market and skills valued by multinational companies,
+So that I can align my coursework and experiences with what employers are looking for in my new country.
