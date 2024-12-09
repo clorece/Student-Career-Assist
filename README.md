@@ -1,5 +1,5 @@
 # Student Career Assist
-**This project was created by ----. Created for the final of ITSC 3155, Software Engineering.**
+**This project was created by Clarence Grimaldo, Faith Madukwe, Morgan Alger, and Griffin Mwangi. Created for the final of ITSC 3155, Software Engineering.**
 
 
 This website provides career guidance for graduate students by keeping up with real-time job market trends, offering insights into in-demand skills, and recommending what skills they need to build to obtain a certain job in a certain field.
