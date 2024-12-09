@@ -1,23 +1,417 @@
 {% extends 'main.html' %}
 
 {% block content %}
-<h1>{{room.name}}</h1>
 
-<p>{{room.description}}</p>
+<style>
+    /* General Layout for the page */
+    .container {
+        display: grid;
+        grid-template-columns: 1fr 3fr 1fr;
+        /* Left, Middle, Right */
+        gap: 20px;
+        padding: 20px;
+    }
+
+    /* Left Sidebar */
+    .Roadmap-left-sidebar {
+        background-color: #f4f4f4;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .Roadmap-left-sidebar h3 {
+        font-size: 1.5rem;
+        color: #007bff;
+        margin-bottom: 10px;
+    }
+
+    .Roadmap-left-sidebar a {
+        display: block;
+        margin-bottom: 10px;
+        color: #007bff;
+        text-decoration: none;
+    }
+
+    .Roadmap-left-sidebar a:hover {
+        text-decoration: underline;
+    }
+
+    .Roadmap-left-sidebar section {
+        margin-top: 20px;
+    }
+
+    .Roadmap-left-sidebar section h4 {
+        font-size: 1rem;
+        font-weight: bold;
+    }
+
+    .Roadmap-left-sidebar section p {
+        font-size: 0.875rem;
+        color: #555;
+    }
+
+    .progress {
+        width: 100%;
+        background-color: #e0e0e0;
+        border-radius: 10px;
+        height: 20px;
+    }
+
+    .progress-bar {
+        background-color: #007bff;
+        height: 100%;
+        border-radius: 10px;
+        text-align: center;
+        color: white;
+        font-weight: bold;
+    }
+
+    /* Main Content (Middle) */
+    .roadmap {
+        background-color: #ffffff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .roadmap__header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+    }
+
+    .roadmap__header h3 {
+        font-size: 2rem;
+        color: #4CAF50;
+        margin: 0;
+    }
+
+    .roadmap__navigation svg {
+        cursor: pointer;
+        transition: transform 0.3s;
+    }
+
+    .roadmap__navigation svg:hover {
+        transform: scale(1.1);
+    }
+
+    .tree {
+        position: relative;
+        margin: 0 auto;
+        width: 80%;
+        border-left: 5px solid #4CAF50;
+        /* Tree trunk */
+        padding: 2rem 0;
+    }
+
+    .root {
+        text-align: center;
+        margin-bottom: 2rem;
+    }
+
+    .circle {
+        background-color: #4CAF50;
+        color: white;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-weight: bold;
+        font-size: 1rem;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .branch {
+        display: flex;
+        align-items: center;
+        margin: 2rem 0;
+        position: relative;
+    }
+
+    .branch-left {
+        justify-content: flex-start;
+        text-align: right;
+        margin-right: 50%;
+        padding-right: 1rem;
+    }
+
+    .branch-right {
+        justify-content: flex-end;
+        text-align: left;
+        margin-left: 50%;
+        padding-left: 1rem;
+    }
+
+    .branch .circle {
+        position: absolute;
+        left: -25px;
+        /* Align with trunk */
+    }
+
+    .branch-left .circle {
+        left: auto;
+        right: -25px;
+    }
+
+    .content {
+        background: #ffffff;
+        padding: 1rem;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        width: 300px;
+        position: relative;
+    }
+
+    .branch-left .content::before,
+    .branch-right .content::before {
+        content: '';
+        position: absolute;
+        width: 30px;
+        height: 5px;
+        background-color: #4CAF50;
+        top: 50%;
+    }
+
+    .branch-left .content::before {
+        right: -30px;
+    }
+
+    .branch-right .content::before {
+        left: -30px;
+    }
+
+    /* Button styles */
+    .buttons {
+        display: flex;
+        gap: 10px;
+        margin-top: 10px;
+    }
+
+    .edit-btn,
+    .delete-btn {
+        padding: 5px 15px;
+        font-size: 1rem;
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    .edit-btn:hover,
+    .delete-btn:hover {
+        background-color: #45a049;
+    }
+
+    .arrow-btn {
+        text-align: center;
+        margin-top: 2rem;
+    }
+
+    .arrow-btn button {
+        background-color: #4CAF50;
+        color: white;
+        font-size: 2rem;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .arrow-btn button:hover {
+        background-color: #45a049;
+    }
+
+    .content h4 {
+        font-size: 1rem;
+        color: #333;
+    }
+
+    .content p {
+        font-size: 0.875rem;
+        color: #777;
+    }
+
+    /* Right Sidebar */
+    .Roadmap-right-sidebar {
+        background-color: #f4f4f4;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .Roadmap-right-sidebar h3,
+    .Roadmap-right-sidebar h4 {
+        font-size: 1.5rem;
+        color: #007bff;
+        margin-bottom: 10px;
+    }
+
+    .Roadmap-right-sidebar .participants__list a {
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px;
+        text-decoration: none;
+        color: #007bff;
+    }
+
+    .Roadmap-right-sidebar .participants__list a:hover {
+        text-decoration: underline;
+    }
+
+    .Roadmap-right-sidebar .avatar img {
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        margin-right: 10px;
+    }
+
+    .Roadmap-right-sidebar .comments__list {
+        margin-top: 20px;
+    }
+
+    .comment {
+        background-color: #fafafa;
+        padding: 10px;
+        border-radius: 5px;
+        margin-bottom: 10px;
+    }
+
+    .comment__body {
+        font-size: 14px;
+        color: #555;
+    }
+
+    textarea {
+        width: 100%;
+        padding: 10px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        font-size: 14px;
+        margin-bottom: 10px;
+    }
+
+    button {
+        padding: 10px 15px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        width: 100%;
+    }
+
+    button:hover {
+        background-color: #0056b3;
+    }
+
+    /* Participants Section */
+    .participants__list {
+        overflow-y: auto;
+        max-height: 300px;
+        margin-bottom: 20px;
+    }
+
+    .participants__list .participant {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        margin-bottom: 10px;
+    }
+
+    .participants__list .participant p {
+        margin-left: 10px;
+        font-size: 0.875rem;
+        color: #555;
+    }
+
+    /* Media Query for Small Screens */
+    @media (max-width: 768px) {
+        .container {
+            grid-template-columns: 1fr;
+            /* Stack sections vertically */
+        }
+
+        .roadmap {
+            margin-top: 20px;
+        }
+
+        .tree {
+            flex-direction: column;
+        }
+
+        .branch {
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        .Roadmap-left-sidebar,
+        .Roadmap-right-sidebar {
+            margin-top: 20px;
+        }
+    }
+</style>
+
+<main>
+    <div class="container">
+        <!-- Left Sidebar -->
+        <div class="Roadmap-left-sidebar">
+            <div>
+                <h3>Browse Topics</h3>
+
+                <div>
+                    <a href="{% url 'home' %}">All</a>
+                </div>
+
+                {% for topic in topics %}
+                <div>
+                    <a href="{% url 'home' %}?q={{topic.name}}">{{topic.name}}</a>
+                </div>
+                {% endfor %}
+
+                <section>
+                    <h3> Overview </h3>
+                    <div>
+                        <h4> Selected Career </h4>
+                        <p> Major - Computer science</p>
+                        <p> focus - software development</p>
+                    </div>
+                    <div>
+                        <h4> Targeted Skills </h4>
+                        <p>Java, Java script, Python</p>
+                        <div class="progress">
+                            <div class="progress-bar" style="width: 7%;">7%</div>
+                        </div>
+                    </div>
+                </section>
+
+                <hr>
+            </div>
+        </div>
 
 
-<div class="comment-wrapper">
-    <h3>Conversation</h3>
-    <hr>
+        <!-- Middle Content -->
+        <div class="roadmap">
 
-    {% for message in room_messages %}
-       <div>
-          <small>@{{message.user}}  {{message.created|timesince}} ago  </small>
-          <p>{{message.body}}</p>
-          <hr>
-       </div>
-    {% endfor%}
-</div>
+            <div class="roadmap__header">
+                <!-- Back Button -->
+                <div class="roadmap__navigation">
+
+                    <a href="{% url 'home' %}">
+                        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="32" height="32"
+                            viewBox="0 0 32 32">
+                            <title>arrow-left</title>
+                            <path
+                                d="M13.723 2.286l-13.723 13.714 13.719 13.714 1.616-1.611-10.96-10.96h27.625v-2.286h-27.625l10.965-10.965-1.616-1.607z">
+                            </path>
+                        </svg>
+                    </a>
+                </div>
 
 
 {% if request.user.is_authenticated %}
@@ -29,4 +423,200 @@
 </div>
 {% endif %}
 
+            </div>
+
+            <!-- Roadmap Content -->
+            <div class="room__box scroll">
+                <div class="room__header scroll">
+                    <div class="room__info">
+                        <h3>{{room.name}}</h3>
+                        <span>{{room.created|timesince}} ago</span>
+                    </div>
+                    <div class="room__hosted">
+                        <p>Hosted By</p>
+                        <a href="# " class="room__author">
+                            <div class="avatar avatar--small">
+                                <img src="https://randomuser.me/api/portraits/men/37.jpg" />
+                            </div>
+                            <span>@{{room.host.username}}</span>
+                        </a>
+                    </div>
+                    <!--
+                      <div class="room__details">
+                        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quasi, tenetur laudantium? Dicta repellendus
+                        rerum consectetur, voluptatem repudiandae eum ea porro cupiditate provident nulla, deserunt, ab ipsum
+                        corporis laboriosam deleniti molestias?
+                      </div>
+                      -->
+                    <span class="room__topics">{{room.topic}}</span>
+                </div>
+
+                <!--                
+                    <div class="room__conversation">
+                        <div class="threads scroll">
+                            {%for message in room_messages %}
+                            <div class="thread">
+                                <div class="thread__top">
+                                    <div class="thread__author">
+                                        <a href="{% url 'user-profile' message.user.id %}" class="thread__authorInfo">
+                                            <div class="avatar avatar--small">
+                                                <img src="https://randomuser.me/api/portraits/men/37.jpg" />
+                                            </div>
+                                            <span>@{{message.user.username}}</span>
+                                        </a>
+                                        <span class="thread__date">{{message.created|timesince}} ago</span>
+                                    </div>
+                                    {% if request.user == message.user %}
+                                    <a href="{% url 'delete-message' message.id %}">
+                                        <div class="thread__delete">
+                                            <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="32" height="32"
+                                                viewBox="0 0 32 32">
+                                                <title>remove</title>
+                                                <path
+                                                    d="M27.314 6.019l-1.333-1.333-9.98 9.981-9.981-9.981-1.333 1.333 9.981 9.981-9.981 9.98 1.333 1.333 9.981-9.98 9.98 9.98 1.333-1.333-9.98-9.98 9.98-9.981z">
+                                                </path>
+                                            </svg>
+                                        </div>
+                                    </a>
+                                    {% endif %}
+                                </div>
+                                <div class="thread__details">
+                                    {{message.body}}
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+                <div class="room__message">
+                    <form action="#"><input name="" placeholder="Write your message here..." /></form>
+                </div> 
+                -->
+
+                <section>
+                    <h3>Your Career Roadmap Tree</h3>
+                    <div class="tree">
+                        <!-- Root -->
+                        <div class="root">
+                            <div class="circle">Start</div>
+                        </div>
+
+                        <!-- Branches -->
+                        <div class="branch branch-left">
+                            <div class="circle">1</div>
+                            <div class="content">
+                                <h4>Identify Career Goals</h4>
+                                <p>Define your desired job roles and industries of interest.</p>
+                            </div>
+                        </div>
+
+                        <div class="branch branch-right">
+                            <div class="circle">2</div>
+                            <div class="content">
+                                <h4>Assess Your Skills</h4>
+                                <p>Evaluate your current skills and identify any gaps.</p>
+                            </div>
+                        </div>
+
+                        <div class="branch branch-left">
+                            <div class="circle">3</div>
+                            <div class="content">
+                                <h4>Build Essential Skills</h4>
+                                <p>Take relevant courses and certifications.</p>
+                            </div>
+                        </div>
+
+                        <div class="branch branch-right">
+                            <div class="circle">4</div>
+                            <div class="content">
+                                <h4>Gain Experience</h4>
+                                <p>Work on internships, projects, or freelance tasks.</p>
+                            </div>
+                        </div>
+
+                        <div class="branch branch-left">
+                            <div class="circle">5</div>
+                            <div class="content">
+                                <h4>Apply for Jobs</h4>
+                                <p>Tailor your resume and ace the interviews.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <hr>
+
+            </div>
+        </div>
+
+        <!-- Right Sidebar -->
+        <div class="Roadmap-right-sidebar">
+            <!-- Trending topics and Courses -->
+            <div class="Trending topics">
+                <h3 class="participants__top">Participants <span>({{participants.count}} Joined)</span></h3>
+                <div class="participants__list scroll">
+                    {% for user in participants %}
+                    <a href="{% url 'user-profile' user.id %}" class="participant">
+                        <div class="avatar avatar--medium">
+                            <img src="https://randomuser.me/api/portraits/men/37.jpg" />
+                        </div>
+                        <p>
+                            {{user.username}}
+                            <span>@{{user.username}}</span>
+                        </p>
+                    </a>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <!-- Participants Section -->
+            <div class="participants">
+                <h4><span>({{ participants.count }} active)</span></h4>
+                <ul>
+                    {% for user in participants %}
+                    <li>
+                        <a href="{% url 'user-profile' user.id %}">
+                            {{ user.username }} (@{{ user.username }})
+                        </a>
+                    </li>
+                    {% empty %}
+                    <li>No active participants yet.</li>
+                    {% endfor %}
+                </ul>
+            </div>
+
+            <!-- Message/Suggestion/Comments Section -->
+            <div class="comments">
+                <h4>Suggestions</h4>
+                <div class="comments__list">
+                    {% for message in roadmap_messages %}
+                    <div class="comment">
+                        <p>
+                            <strong>@{{ message.user.username }}</strong> - {{ message.created|timesince }} ago
+                        </p>
+                        <div class="comment__body">
+                            {{ message.body }}
+                        </div>
+                        {% if request.user == message.user %}
+                        <a href="{% url 'delete-message' message.id %}">Delete</a>
+                        {% endif %}
+                    </div>
+                    {% empty %}
+                    <p>No comments yet.</p>
+                    {% endfor %}
+                </div>
+
+                <!-- Add Message/Suggestion/comment Form -->
+                <form method="POST" action="#">
+                    {% csrf_token %}
+                    <textarea name="body" placeholder="Add your Suggestion here..." required></textarea>
+                    <button type="submit">Submit</button>
+                </form>
+            </div>
+            <hr>
+        </div>
+
+
+
+    </div>
+</main>
 {% endblock %}
