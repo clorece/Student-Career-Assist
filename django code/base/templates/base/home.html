@@ -30,6 +30,10 @@
     <div>
         <h5>{{room_count}} rooms available</h5>
       <a href="{% url 'create-room' %}">Create Room</a>
+         
+      <div id="room-description">
+            <h2>Welcome! Choose a room to see the details.</h2>
+       </div>
 
       <div>
           {% for room in rooms %}
